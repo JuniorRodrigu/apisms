@@ -1,4 +1,3 @@
-
 const bodyParser = require('body-parser');
 const twilio = require('twilio');
 const express = require('express');
@@ -7,9 +6,14 @@ const cors = require('cors');
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
+
 const accountSid = 'ACca6ad5ddc85bc3e89dbf60d1cdac693a';
-const authToken = '77c9903ee0585f75f2397a3a7e7745b6';
+const authToken = 'fa3085868cac4b3351fe4dd4a1d34abc';
 const client = new twilio(accountSid, authToken);
+
+app.get('/status', (req, res) => {
+  res.send('Server is running on Vercel');
+});
 
 app.post('/send-sms', async (req, res) => {
   const { numero } = req.body;
@@ -31,8 +35,4 @@ app.post('/send-sms', async (req, res) => {
   }
 });
 
-
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+module.exports = app;

@@ -1,5 +1,5 @@
 {
-  "name": "tests",
+  "name": "apisms",
   "version": "1.0.0",
   "description": "Descrição do seu projeto",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "node": "14.x"
   },
   "scripts": {
-    "start": "node index.js"
+    "vercel-start": "node server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
