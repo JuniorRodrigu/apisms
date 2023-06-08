@@ -16,13 +16,13 @@ app.get('/status', (req, res) => {
 });
 
 app.post('/send-sms', async (req, res) => {
-  const { numero } = req.body;
+  const { numero, mensagem } = req.body;
 
   console.log('Request body:', req.body);
 
   try {
     const message = await client.messages.create({
-      body: 'teste',
+      body: mensagem,
       from: '+13203773783',
       to: numero,
     });
@@ -39,5 +39,3 @@ const PORT = process.env.PORT || 9001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
-module.exports = app;
