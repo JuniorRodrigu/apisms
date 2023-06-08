@@ -10,10 +10,6 @@ const accountSid = 'ACca6ad5ddc85bc3e89dbf60d1cdac693a';
 const authToken = 'ce0dad0c282c8e875701e261a5b0f202';
 const client = new twilio(accountSid, authToken);
 
-app.get('/', (req, res) => {
-  res.send('SMS API is running');
-});
-
 app.post('/send-sms', async (req, res) => {
   const { numero } = req.body;
 
