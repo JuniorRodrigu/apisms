@@ -1,9 +1,16 @@
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 3001;
+
+// Rota para exibir "Olá mundo"
+app.get('/', (req, res) => {
+  res.send('Olá mundo!');
+});
+
 const bodyParser = require('body-parser');
 const twilio = require('twilio');
-const express = require('express');
 const cors = require('cors');
 
-const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -27,7 +34,7 @@ app.post('/send-sms', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
+
