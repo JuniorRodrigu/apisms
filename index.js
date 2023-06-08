@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 9001;
 
 // Rota para exibir "Olá mundo"
 app.get('/', (req, res) => {
@@ -37,4 +37,3 @@ app.post('/send-sms', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-
