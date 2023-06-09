@@ -7,7 +7,7 @@ const app = express();
 app.use(bodyParser.json());
 
 const corsOptions = {
-  origin: 'http://localhost:3000'
+  origin: 'https://pag-doar.vercel.app/sms'
 };
 app.use(cors(corsOptions));
 
