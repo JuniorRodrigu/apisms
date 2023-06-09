@@ -8,7 +8,11 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/send-sms",
+      "dest": "/index.js"
+    },
+    {
+      "src": "/status",
       "dest": "/index.js"
     }
   ]
