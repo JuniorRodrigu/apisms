@@ -6,20 +6,19 @@ const cors = require('cors');
 const app = express();
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-  if (req.method === 'OPTIONS') {
-    res.sendStatus(200);
-  } else {
-    next();
-  }
-});
+const corsOptions = {
+  origin: 'https://pag-doar.vercel.app',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 
 const accountSid = 'ACca6ad5ddc85bc3e89dbf60d1cdac693a';
 const authToken = 'fa3085868cac4b335fe4dd4a1d34abc';
-const client = new twilio(accountSid, authToken);
+const client = newilio(accountSid, authToken);
 
 app.get('/', (req, res) => {
   res.send('Página inicial');
@@ -29,7 +28,7 @@ app.get('/status', (req, res) => {
   res.send('Servidor em execução');
 });
 
-app.post('/send-sms', async (req, res) => {
+app.post('/send-sms', (req, res) => {
   const { numero, mensagem } = req.body;
 
   console.log('Request body:', req.body);
