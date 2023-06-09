@@ -1,7 +1,6 @@
 { 
    "name": "apisms", 
    "version": "1.0.0", 
-   "description": "Descrição do seu projeto", 
    "main": "index.js", 
    "engines": { 
      "node": "14.x" 
