@@ -15,7 +15,10 @@ app.use(cors(corsOptions));
 const accountSid = 'ACca6ad5ddc85bc3e89dbf60d1cdac693a'; 
 const authToken = 'fa3085868cac4b3351fe4dd4a1d34abc'; 
 const client = new twilio(accountSid, authToken); 
-  
+  app.get('/', (req, res) => {
+  res.send('Página inicial');
+});
+
 app.get('/status', (req, res) => { 
   res.send('Servidor em execução'); 
 }); 
