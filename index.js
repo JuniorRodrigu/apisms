@@ -10,7 +10,11 @@ app.use(cors());
 const accountSid = 'ACca6ad5ddc85bc3e89dbf60d1cdac693a';
 const authToken = 'fa3085868cac4b3351fe4dd4a1d34abc';
 const client = new twilio(accountSid, authToken);
-
+const cors = require('cors');
+const corsOptions = {
+  origin: 'http://localhost:3000'
+};
+app.use(cors(corsOptions));
 app.get('/status', (req, res) => {
   res.send('Server is running on Vercel');
 });
