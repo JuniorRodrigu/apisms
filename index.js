@@ -1,54 +1,45 @@
-const bodyParser = require('body-parser');
-const twilio = require('twilio');
-const express = require('express');
+const bodyParser = require('body-parser'); 
+const twilio = require('twilio'); 
+const express = require('express'); 
+const cors = require('cors'); 
 
-const app = express();
-app.use(bodyParser.json());
+const app = express(); 
+app.use(bodyParser.json()); 
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://pag-doar.vercel.app');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-  if (req.method === 'OPTIONS') {
-    res.sendStatus(200);
-  } else {
-    next();
-  }
-});
+const corsOptions = { 
+  origin: 'https://pag-doar.vercel.app/sms' 
+}; 
+app.use(cors(corsOptions)); 
 
-const accountSid = 'ACca6ad5ddc85bc3e89dbf60d1cdac693a';
-const authToken = 'fa3085868cac4335fe4dd4a1d34abc';
-const client = new twilio(accountSid, authToken);
+const accountSid = 'ACca6ad5ddc85bc3e89dbf60d1cdac693a'; 
+const authToken = 'fa3085868cac4b3351fe4dd4a1d34abc'; 
+const client = new twilio(accountSid, authToken); 
 
-app.get('/', (req, res) => {
-  res.send('Página inicial');
-});
+app.get('/status', (req, res) => { 
+  res.send('Servidor em execução'); 
+}); 
 
-app.get('/status (req, res) => {
-  res.send('Servidor em execução');
-});
+app.post('/send-sms', async (req, res) => { 
+  const { numero, mensagem } = req.body; 
 
-app.post('/send-sms', async (req, res) => {
-  const { numero, mensagem } = req.body;
+  console.log('Request body:', req.body); 
 
-  console.log('Request body:', req.body);
+  try { 
+    const message = await client.messages.create({ 
+      body: mensagem, 
+      from: '+13203773783', 
+      to: numero, 
+    }); 
 
-  try {
-    const message = await client.messages.create({
-      body: mensagem,
-      from: '+13203773783',
-      to: numero,
-    });
+    console.log('Twilio response:', message); 
+    res.status(200).send(message.sid); 
+  } catch (error) { 
+    console.error('Error:', error); 
+    res.status(500).send(error.message); 
+  } 
+}); 
 
-    console.log('Twilio response:', message);
-    res.status(200).send(message.sid);
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).send(error.message);
-  }
-});
-
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Servidor em execução na porta ${PORT}`);
-});
+const PORT = process.env.PORT || 3001; 
+app.listen(PORT, () => { 
+  console.log(`Servidor em execução na porta ${PORT}`); 
+}); 
