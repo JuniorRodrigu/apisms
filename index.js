@@ -6,14 +6,21 @@ const cors = require('cors');
 const app = express();
 app.use(bodyParser.json());
 
+// Adicionando o cabeçalho Access-Control-Allow-Origin
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://pag-doar.vercel.app');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
+
 // Add the new route for the root endpoint here
 app.get('/', (req, res) => {
-  res.send('Hello World!'); 
+  res.send('Hello World!');
 });
 
 // Update the origin option in corsOptions to match the origin of your front-end application
 const corsOptions = {
-  origin: 'https://pag-doar.vercel.app/sms' 
+  origin: 'https://pag-doar.vercel.app'
 };
 app.use(cors(corsOptions));
 
@@ -22,7 +29,7 @@ const authToken = 'fa3085868cac4b3351fe4dd4a1d34abc';
 const client = new twilio(accountSid, authToken);
 
 app.get('/status', (req, res) => {
-  res.send('Servidor em execução'); 
+  res.send('Servidor em execução');
 });
 
 app.post('/send-sms', async (req, res) => {
@@ -47,5 +54,5 @@ app.post('/send-sms', async (req, res) => {
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`Servidor em execução na porta ${PORT}`); 
+  console.log(`Servidor em execução na porta ${PORT}`);
 });
