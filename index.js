@@ -11,8 +11,9 @@ app.get('/', (req, res) => {
   res.send('Hello World!'); 
 });
 
+// Update the origin option in corsOptions to match the origin of your front-end application
 const corsOptions = {
-  origin: 'https://pag-doar.vercel.app/sms' 
+  origin: 'https://pag-doar.vercel.app' 
 };
 app.use(cors(corsOptions));
 
