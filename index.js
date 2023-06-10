@@ -6,6 +6,11 @@ const cors = require('cors');
 const app = express();
 app.use(bodyParser.json());
 
+// Add the new route for the root endpoint here
+app.get('/', (req, res) => {
+  res.send('Hello World!'); 
+});
+
 const corsOptions = {
   origin: 'https://pag-doar.vercel.app/sms' 
 };
